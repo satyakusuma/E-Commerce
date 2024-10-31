@@ -18,7 +18,7 @@ const TrendingProducts = () => {
       </p>
       {/* Product Cards */}
       <div className="mt-12">
-        <ProductCards products={products.slice(0, visibleProducts)} />
+        <ProductCards products={products.slice(0, visibleProducts   )} />
       </div>
       
       {/* load more product button */}
