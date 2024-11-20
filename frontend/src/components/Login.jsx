@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Login = () => {
-  const [message, setMassage] = useState("");
-  const [email, setEmail] =useState('');
-  const [password,setPassword] = useState('');
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = {
-        email,
-        password
-    }
+      email,
+      password
+    };
 
-  }
+    try {
+      const response = await axios.post('http://localhost:3000/api/users/login', data);
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage('Login gagal. Coba lagi nanti.');
+      }
+    }
+  };
+
   return (
     <section className="h-screen flex items-center justify-center">
       <div className="max-w-sm border shadow bg-white mx-auto p-8">
-        <h2 className="tex-2xl font-semibold pt-5">Please Login</h2>
+        <h2 className="text-2xl font-semibold pt-5">Please Login</h2>
         <form onSubmit={handleLogin} className="space-y-5 max-w-sm mx-auto pt-8">
           <input
             onChange={(e) => setEmail(e.target.value)}
